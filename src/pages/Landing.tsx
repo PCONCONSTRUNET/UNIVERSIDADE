@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoFull from '@/assets/logo-full.png';
 import hakiAvatar from '@/assets/haki-avatar.png';
@@ -246,7 +246,7 @@ const Landing = () => {
               <span className="text-emerald-400">Hakify</span>
               <span className="text-white/30">Outros</span>
             </div>
-             {[
+            {[
               { feature: 'Tutor com IA', us: true, them: false },
               { feature: 'Grade horários', us: true, them: true },
               { feature: 'Controle notas', us: true, them: true },
@@ -260,9 +260,8 @@ const Landing = () => {
             ].map((row, i) => (
               <div
                 key={row.feature}
-                className={`grid grid-cols-3 items-center text-center py-2.5 px-3 text-[12px] ${
-                  i % 2 === 0 ? 'bg-white/[0.02]' : ''
-                }`}
+                className={`grid grid-cols-3 items-center text-center py-2.5 px-3 text-[12px] ${i % 2 === 0 ? 'bg-white/[0.02]' : ''
+                  }`}
               >
                 <span className="text-left text-white/60 font-medium">{row.feature}</span>
                 <span>
@@ -458,12 +457,12 @@ const Landing = () => {
           </p>
           <div className="flex items-center justify-center gap-5">
             <a href="mailto:contato@studyhakify.com" className="h-8 w-8 rounded-full bg-emerald-400/10 border border-emerald-400/20 grid place-items-center text-emerald-400 hover:bg-emerald-400/20 hover:border-emerald-400/40 transition-all">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
             </a>
             <a href="https://instagram.com/studyhakify" target="_blank" rel="noopener noreferrer" className="h-8 w-8 rounded-full bg-pink-500/10 border border-pink-500/20 grid place-items-center text-pink-400 hover:bg-pink-500/20 hover:border-pink-500/40 transition-all">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
             </a>
-            <a href="/termos" className="h-8 px-4 rounded-full bg-cyan-400/10 border border-cyan-400/20 grid place-items-center text-cyan-300 hover:bg-cyan-400/20 hover:border-cyan-400/40 transition-all text-[11px] font-semibold tracking-wide">Termos</a>
+            <Link to="/termos" className="h-8 px-4 rounded-full bg-cyan-400/10 border border-cyan-400/20 grid place-items-center text-cyan-300 hover:bg-cyan-400/20 hover:border-cyan-400/40 transition-all text-[11px] font-semibold tracking-wide">Termos</Link>
           </div>
         </footer>
       </div>
@@ -514,11 +513,10 @@ const FeatureCard = ({
 const ChatBubble = ({ sender, text }: { sender: 'user' | 'haki'; text: string }) => (
   <div className={`flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`}>
     <div
-      className={`rounded-2xl px-3 py-2 text-[11px] leading-relaxed max-w-[85%] ${
-        sender === 'user'
+      className={`rounded-2xl px-3 py-2 text-[11px] leading-relaxed max-w-[85%] ${sender === 'user'
           ? 'bg-gradient-to-r from-emerald-500/80 to-cyan-500/80 text-white rounded-br-md'
           : 'bg-white/[0.08] text-white/80 rounded-bl-md'
-      }`}
+        }`}
     >
       {text}
     </div>
@@ -630,11 +628,10 @@ const PricingModal = ({
           <div className="grid grid-cols-2 gap-2.5 mb-5">
             <button
               onClick={() => setSelectedPlan('monthly')}
-              className={`rounded-xl p-3 text-left border-2 transition-all ${
-                selectedPlan === 'monthly'
+              className={`rounded-xl p-3 text-left border-2 transition-all ${selectedPlan === 'monthly'
                   ? 'border-white/30 bg-white/[0.06]'
                   : 'border-white/[0.06] bg-white/[0.02] hover:border-white/15'
-              }`}
+                }`}
             >
               <p className="text-[10px] font-bold text-white/40 uppercase tracking-wider">Mensal</p>
               <p className="text-lg font-extrabold text-white mt-1">R$ 24,90</p>
@@ -642,11 +639,10 @@ const PricingModal = ({
             </button>
             <button
               onClick={() => setSelectedPlan('yearly')}
-              className={`relative rounded-xl p-3 text-left border-2 transition-all ${
-                selectedPlan === 'yearly'
+              className={`relative rounded-xl p-3 text-left border-2 transition-all ${selectedPlan === 'yearly'
                   ? 'border-emerald-500/50 bg-emerald-500/[0.06]'
                   : 'border-white/[0.06] bg-white/[0.02] hover:border-white/15'
-              }`}
+                }`}
             >
               <div className="absolute -top-2 right-2">
                 <span className="text-[8px] font-bold text-white bg-gradient-to-r from-emerald-500 to-cyan-500 px-2 py-0.5 rounded-full">

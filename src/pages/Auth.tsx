@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { Mail, Lock, User, ArrowLeft } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams, Link } from 'react-router-dom';
 import logo from '@/assets/logo-full.png';
 
 type AuthView = 'login' | 'register' | 'forgot';
@@ -227,7 +227,7 @@ const Auth = () => {
         <div className="space-y-3 pt-2">
           <p className="text-center text-xs text-white/60">
             Ao usar o Study Hakify, você concorda com nossos{' '}
-            <a href="/termos" className="underline text-emerald-400/80 hover:text-emerald-400">Termos de Uso e Política de Privacidade</a>.
+            <Link to="/termos" className="underline text-emerald-400/80 hover:text-emerald-400">Termos de Uso e Política de Privacidade</Link>.
           </p>
           <div className="flex items-center justify-center gap-4">
             <a href="mailto:studyhakify@gmail.com" className="text-white/60 hover:text-emerald-400 transition-colors" title="Email de suporte">

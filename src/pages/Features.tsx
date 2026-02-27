@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   BarChart3, AlertTriangle, Users, Target, ChevronLeft, ChevronRight,
@@ -353,16 +354,19 @@ const Features = () => {
           </div>
 
           {/* CTA */}
-          <motion.a
-            href="/landing"
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-accent to-emerald-500 text-white font-semibold text-sm shadow-lg shadow-accent/30 hover:shadow-accent/50 transition-shadow"
           >
-            Começar agora
-            <ArrowRight className="w-4 h-4" />
-          </motion.a>
+            <Link
+              to="/landing"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-accent to-emerald-500 text-white font-semibold text-sm shadow-lg shadow-accent/30 hover:shadow-accent/50 transition-shadow"
+            >
+              Começar agora
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
         </div>
 
         {/* Footer */}
