@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   LayoutDashboard, Users, CreditCard, ClipboardList,
@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '@/hooks/useAdmin';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
 import logoFull from '@/assets/logo-full.png';
 import { AdminDashboard } from '@/components/admin/AdminDashboard';
 import { AdminClients } from '@/components/admin/AdminClients';
@@ -16,9 +18,6 @@ import { AdminAudit } from '@/components/admin/AdminAudit';
 import { AdminSubscriptions } from '@/components/admin/AdminSubscriptions';
 import { AdminFinanceiro } from '@/components/admin/AdminFinanceiro';
 import { AdminReferrals } from '@/components/admin/AdminReferrals';
-
-const ADMIN_USER = 'AcessoStudy';
-const ADMIN_PASS = 'Studyacesso';
 
 type AdminTab = 'dashboard' | 'clients' | 'subscriptions' | 'financeiro' | 'payments' | 'referrals' | 'audit';
 
@@ -32,18 +31,29 @@ const NAV_ITEMS: { id: AdminTab; label: string; icon: typeof LayoutDashboard }[]
   { id: 'audit', label: 'Auditoria', icon: ClipboardList },
 ];
 
-const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
-  const [username, setUsername] = useState('');
+const AdminLogin = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === ADMIN_USER && password === ADMIN_PASS) {
-      onLogin();
-    } else {
-      setError('Usuário ou senha incorretos');
+    setLoading(true);
+    setError('');
+
+    try {
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) throw signInError;
+    } catch (err: any) {
+      setError(err.message === 'Invalid login credentials' ? 'Email ou senha incorretos.' : err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,13 +74,14 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <label className="text-xs font-medium text-white/80">Usuário</label>
+            <label className="text-xs font-medium text-white/80">E-mail</label>
             <div className="relative">
               <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
               <Input
-                value={username}
-                onChange={(e) => { setUsername(e.target.value); setError(''); }}
-                placeholder="Digite o usuário"
+                type="email"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); setError(''); }}
+                placeholder="seu@email.admin"
                 className="pl-9 bg-white/10 border-white/15 text-white placeholder:text-white/30 focus:border-emerald-400/50"
                 autoFocus
               />
@@ -90,8 +101,8 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
             </div>
           </div>
           {error && <p className="text-xs text-red-400 text-center">{error}</p>}
-          <Button type="submit" className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white border-0">
-            <Lock size={14} className="mr-2" /> Entrar
+          <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white border-0">
+            {loading ? 'Acessando...' : <><Lock size={14} className="mr-2" /> Entrar</>}
           </Button>
         </form>
 
@@ -107,13 +118,21 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
 };
 
 const Admin = () => {
-  const [authenticated, setAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
   const navigate = useNavigate();
+  const { user, isLoading: authLoading } = useAuth();
   const adminData = useAdmin();
 
-  if (!authenticated) {
-    return <AdminLogin onLogin={() => setAuthenticated(true)} />;
+  if (authLoading || adminData.loading) {
+    return (
+      <div className="min-h-screen bg-[#061B3A] flex items-center justify-center">
+        <div className="animate-pulse text-white/60">Verificando credenciais de administrador...</div>
+      </div>
+    );
+  }
+
+  if (!user || !adminData.isAdmin) {
+    return <AdminLogin />;
   }
 
   return (
@@ -141,11 +160,10 @@ const Admin = () => {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                activeTab === item.id
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${activeTab === item.id
                   ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
                   : 'text-white/50 hover:bg-white/[0.05] hover:text-white/80'
-              }`}
+                }`}
             >
               <item.icon size={18} />
               {item.label}
@@ -162,7 +180,10 @@ const Admin = () => {
             Voltar ao app
           </button>
           <button
-            onClick={() => setAuthenticated(false)}
+            onClick={async () => {
+              await supabase.auth.signOut();
+              navigate('/');
+            }}
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-red-400/80 hover:bg-red-500/10 hover:text-red-400 transition-colors"
           >
             <LogOut size={18} />
