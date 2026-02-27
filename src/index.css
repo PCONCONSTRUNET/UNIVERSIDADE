@@ -1,0 +1,373 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 224 30% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 30% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 30% 12%;
+
+    --primary: 234 85% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 224 30% 12%;
+
+    --muted: 220 15% 92%;
+    --muted-foreground: 220 10% 46%;
+
+    --accent: 165 70% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 0 0% 100%;
+
+    --success: 152 60% 42%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 220 15% 90%;
+    --input: 220 15% 90%;
+    --ring: 234 85% 60%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 224 30% 8%;
+    --foreground: 220 15% 92%;
+
+    --card: 224 25% 12%;
+    --card-foreground: 220 15% 92%;
+
+    --popover: 224 25% 12%;
+    --popover-foreground: 220 15% 92%;
+
+    --primary: 234 85% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 224 20% 18%;
+    --secondary-foreground: 220 15% 92%;
+
+    --muted: 224 20% 18%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 165 70% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 85% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --success: 152 55% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 224 20% 20%;
+    --input: 224 20% 20%;
+    --ring: 234 85% 65%;
+
+    --sidebar-background: 224 30% 8%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 224 20% 15%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 224 20% 18%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+/* Hakify Auth Premium Background */
+:root {
+  --hakify-blue-900: #061B3A;
+  --hakify-blue-700: #0A3D91;
+  --hakify-blue-500: #1E88FF;
+  --hakify-cyan-400: #35D1FF;
+  --hakify-green-400: #37E28A;
+  --hakify-lime-300: #C7FF5B;
+}
+
+.hakify-auth-bg {
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 500px at 20% 20%, rgba(53,209,255,.26), transparent 55%),
+    radial-gradient(800px 450px at 80% 25%, rgba(55,226,138,.18), transparent 55%),
+    radial-gradient(700px 450px at 55% 80%, rgba(199,255,91,.10), transparent 60%),
+    linear-gradient(160deg, var(--hakify-blue-900) 0%, #071b2b 45%, #041327 100%);
+  position: relative;
+  overflow: hidden;
+  animation: hakify-bg-shift 8s ease-in-out infinite alternate;
+}
+
+@keyframes hakify-bg-shift {
+  0% {
+    background:
+      radial-gradient(900px 500px at 20% 20%, rgba(53,209,255,.26), transparent 55%),
+      radial-gradient(800px 450px at 80% 25%, rgba(55,226,138,.18), transparent 55%),
+      radial-gradient(700px 450px at 55% 80%, rgba(199,255,91,.10), transparent 60%),
+      linear-gradient(160deg, var(--hakify-blue-900) 0%, #071b2b 45%, #041327 100%);
+  }
+  50% {
+    background:
+      radial-gradient(900px 500px at 35% 30%, rgba(53,209,255,.30), transparent 55%),
+      radial-gradient(800px 450px at 65% 15%, rgba(55,226,138,.22), transparent 55%),
+      radial-gradient(700px 450px at 45% 70%, rgba(199,255,91,.14), transparent 60%),
+      linear-gradient(160deg, var(--hakify-blue-900) 0%, #071b2b 45%, #041327 100%);
+  }
+  100% {
+    background:
+      radial-gradient(900px 500px at 25% 25%, rgba(30,136,255,.28), transparent 55%),
+      radial-gradient(800px 450px at 75% 35%, rgba(53,209,255,.20), transparent 55%),
+      radial-gradient(700px 450px at 50% 85%, rgba(55,226,138,.12), transparent 60%),
+      linear-gradient(160deg, var(--hakify-blue-900) 0%, #071b2b 45%, #041327 100%);
+  }
+}
+
+.hakify-auth-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .18;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2335D1FF'/%3E%3Cstop offset='1' stop-color='%231E88FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='url(%23g)' stroke-width='2' opacity='.55'%3E%3Cpath d='M38 84l72-28 72 28-72 28-72-28z'/%3E%3Cpath d='M64 122c0-10 18-18 46-18s46 8 46 18v34c0 10-18 18-46 18s-46-8-46-18v-34z'/%3E%3Cpath d='M156 98v14'/%3E%3Cpath d='M70 138c8-6 22-10 40-10s32 4 40 10'/%3E%3Ccircle cx='178' cy='56' r='3'/%3E%3Ccircle cx='42' cy='164' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  background-repeat: repeat;
+  transform: rotate(-6deg) scale(1.05);
+  animation: hakify-pattern-drift 20s linear infinite;
+}
+
+@keyframes hakify-pattern-drift {
+  0% { transform: rotate(-6deg) scale(1.05) translate(0, 0); }
+  50% { transform: rotate(-4deg) scale(1.05) translate(12px, -8px); }
+  100% { transform: rotate(-6deg) scale(1.05) translate(0, 0); }
+}
+
+.hakify-auth-bg::after {
+  content: "";
+  position: absolute;
+  inset: -200px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(53,209,255,.12), transparent 45%),
+    radial-gradient(circle at 70% 35%, rgba(30,136,255,.10), transparent 46%),
+    radial-gradient(circle at 60% 75%, rgba(55,226,138,.08), transparent 50%);
+  filter: blur(18px);
+  pointer-events: none;
+  animation: hakify-glow-pulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes hakify-glow-pulse {
+  0% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.08); }
+}
+
+.hakify-auth-card {
+  background: linear-gradient(
+    135deg,
+    rgba(55, 226, 138, 0.12) 0%,
+    rgba(53, 209, 255, 0.10) 40%,
+    rgba(30, 136, 255, 0.08) 100%
+  );
+  border: 1px solid rgba(55, 226, 138, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Admin Panel — dark glassmorphism theme scoped via CSS variables */
+.admin-panel {
+  --background: 222 35% 7%;
+  --foreground: 210 20% 92%;
+
+  --card: 222 30% 12%;
+  --card-foreground: 210 20% 92%;
+
+  --popover: 222 30% 14%;
+  --popover-foreground: 210 20% 92%;
+
+  --primary: 160 60% 50%;
+  --primary-foreground: 222 35% 7%;
+
+  --secondary: 222 25% 16%;
+  --secondary-foreground: 210 20% 85%;
+
+  --muted: 222 25% 16%;
+  --muted-foreground: 210 12% 58%;
+
+  --accent: 190 70% 50%;
+  --accent-foreground: 222 35% 7%;
+
+  --destructive: 0 65% 55%;
+  --destructive-foreground: 0 0% 100%;
+
+  --warning: 38 85% 55%;
+  --warning-foreground: 0 0% 100%;
+
+  --success: 152 55% 48%;
+  --success-foreground: 0 0% 100%;
+
+  --border: 222 20% 18%;
+  --input: 222 20% 18%;
+  --ring: 160 60% 50%;
+}
+
+.admin-sidebar {
+  background: linear-gradient(
+    180deg,
+    rgba(6, 27, 58, 0.95) 0%,
+    rgba(7, 27, 43, 0.98) 100%
+  );
+  border-right: 1px solid rgba(55, 226, 138, 0.12);
+}
+
+.admin-header {
+  background: linear-gradient(
+    90deg,
+    rgba(6, 27, 58, 0.7) 0%,
+    rgba(7, 27, 43, 0.85) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(55, 226, 138, 0.1);
+}
+
+.admin-card-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(55, 226, 138, 0.06) 0%,
+    rgba(53, 209, 255, 0.04) 40%,
+    rgba(30, 136, 255, 0.03) 100%
+  );
+  border: 1px solid rgba(55, 226, 138, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Landing Page */
+.landing-root {
+  min-height: 100vh;
+  background: hsl(var(--background));
+}
+
+.landing-link-btn {
+  font-size: 13px;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.15s;
+}
+.landing-link-btn:hover {
+  color: hsl(var(--foreground));
+}
+
+.landing-main-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary));
+  box-shadow: 0 2px 12px hsl(var(--primary) / 0.25);
+  transition: transform 0.12s, opacity 0.12s;
+}
+.landing-main-cta:hover {
+  opacity: 0.92;
+}
+.landing-main-cta:active {
+  transform: scale(0.98);
+}
+
+/* Custom styling for Mercado Pago Payment Brick submit button */
+.checkout-bricks-container [class*="button-container"] button,
+.checkout-bricks-container button[type="submit"] {
+  padding: 14px 28px !important;
+  font-weight: 600 !important;
+  color: hsl(var(--foreground)) !important;
+  background: hsl(var(--accent)) !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  transition: opacity 0.2s ease, transform 0.15s ease !important;
+  box-shadow: none !important;
+}
+
+.checkout-bricks-container [class*="button-container"] button:hover,
+.checkout-bricks-container button[type="submit"]:hover {
+  opacity: 0.9 !important;
+  transform: scale(1.02) !important;
+}
+
+.checkout-bricks-container [class*="button-container"] button:active,
+.checkout-bricks-container button[type="submit"]:active {
+  transform: scale(0.98) !important;
+}
+
+/* Hide Lovable branding */
+a[href*="lovable.dev"],
+iframe[src*="lovable.dev"],
+div[style*="Edit with Lovable"],
+.lovable-badge {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  z-index: -9999 !important;
+}
