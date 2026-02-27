@@ -43,6 +43,12 @@ const AdminLogin = () => {
     setLoading(true);
     setError('');
 
+    if (email.toLowerCase() !== 'lucaspereirabn10@gmail.com') {
+      setError('Acesso negado. Apenas o e-mail administrador principal pode acessar este painel.');
+      setLoading(false);
+      return;
+    }
+
     try {
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
@@ -131,7 +137,7 @@ const Admin = () => {
     );
   }
 
-  if (!user || !adminData.isAdmin) {
+  if (!user || user.email !== 'lucaspereirabn10@gmail.com' || !adminData.isAdmin) {
     return <AdminLogin />;
   }
 
@@ -161,8 +167,8 @@ const Admin = () => {
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${activeTab === item.id
-                  ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
-                  : 'text-white/50 hover:bg-white/[0.05] hover:text-white/80'
+                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
+                : 'text-white/50 hover:bg-white/[0.05] hover:text-white/80'
                 }`}
             >
               <item.icon size={18} />

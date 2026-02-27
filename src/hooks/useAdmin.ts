@@ -103,7 +103,7 @@ export function useAdmin() {
 
   const checkAdmin = useCallback(async () => {
     if (authLoading) return; // wait for auth to finish
-    if (!user) { setIsAdmin(false); setLoading(false); return; }
+    if (!user || user.email !== 'lucaspereirabn10@gmail.com') { setIsAdmin(false); setLoading(false); return; }
     try {
       const { data } = await supabase
         .from('user_roles' as any)
